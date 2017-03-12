@@ -1,3 +1,7 @@
+Version 1.01
+= UI Changes
+- Tweaked the new Previewbar's position based on which extensions are loaded
+
 Version 1.0
 = Features
 - Added a new Previewbar inspired by an anon
