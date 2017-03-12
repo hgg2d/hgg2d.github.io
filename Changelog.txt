@@ -1,3 +1,7 @@
+Version 1.02
+= UI Changes
+- Tweaked the new Previewbar's scrollbar behavior
+
 Version 1.01
 = UI Changes
 - Tweaked the new Previewbar's position based on which extensions are loaded
