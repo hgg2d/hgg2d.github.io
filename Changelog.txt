@@ -1,0 +1,9 @@
+Version 1.0
+= Features
+- Added a new Previewbar inspired by an anon
+- - Previewbar can be toggled off and on by clicking the "Previewbar On/Off" link at the bottom of any thread
+
+= Bugfixes
+- Fixed a bug which caused certain dlsite blogs not to link properly
+- Fixed a bug which caused certain dlsite professional links to not link properly
+- Moved away from long polling in favor of MutationEvents, should be a little more responsive
