@@ -1,3 +1,10 @@
+Version 1.05
+= Features
+- RJA codes can now also be written as RA codes (VA works as well)
+
+= Bugfixes
+- Fixed a bug that was preventing RJA codes from working in the previewbar
+
 Version 1.02
 = UI Changes
 - Tweaked the new Previewbar's scrollbar behavior
