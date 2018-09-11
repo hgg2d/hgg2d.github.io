@@ -1,3 +1,12 @@
+Version 1.10
+= Features
+- Ipfs directories are now supported by the script, provided they follow RE/RJ code format conventions
+- Minor refactorings in old code
+
+Version 1.06
+= Bugfixes
+- RE codes can now be written as RJ codes
+
 Version 1.05
 = Features
 - RJA codes can now also be written as RA codes (VA works as well)
