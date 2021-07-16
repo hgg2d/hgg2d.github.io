@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        DLSite Links+
-// @namespace   Loli-A-Best
+// @namespace   Loli-A-Best-And-Pinks
 // @include     *://boards.4chan.org/vg/thread/*
 // @include     *://boards.4chan.org/h/thread/*
 // @include     *://boards.4chan.org/*/thread/*
@@ -19,7 +19,7 @@
     'use strict'
     const d = document
     const Chan = {
-        VNDBCode: /(((?:(?:https?:\/\/)?vndb.org\/)|\s+|^)(v\d+))/gi,
+        VNDBCode: /(?:(?:(?:https?:\/\/)?vndb.org\/)|\s+|^)(v\d+)/gi,
         DMMCode: /(?:(?:dmm|www|https?)[^>\s]+)?(?:cid=)?(?:d_|DMM)(\d{6})/gi,
         RJCode: /((?:(?:dlsite|www|http|maniax)[^>\s]+)?[rv][jea]a?((\d{3})\d{3})(?:\.html)?)/gi,
         RGBlog: /(http:\/\/\S*b\.dlsite\.net\/(?:rg\d{5}\/)?archives\/\d{3,8}\.html)/gi,
@@ -165,14 +165,14 @@
         },
         createVNDB: (el, match, code) => {
             const anch = Chan.createAnch(match)
-            for(let i = code.length; i > 0; i--){
-                if(code[i] === 'v'){
-                    code = code.substring(i, code.length);
-                    break;
-                }
-            }
-            anch.classList.add('lewds');
             anch.href = `https://vndb.org/${code}`
+            anch.classList.add('lewds')
+            if (Chan.games.indexOf(code) === -1) {
+                Chan.games.push(code)
+                const node = anch.cloneNode()
+                node.appendChild(d.createTextNode(code))
+                Chan.content.appendChild(node)
+            }
             return anch
         },
         createCirc: (el, match, code) => {
@@ -269,14 +269,12 @@
             } else if (e.target.href.includes('dmm.co')) {
                 const code = e.target.href.split('cid=')[1].substr(0, 8)
                 Chan.prev.src = `https://pics.dmm.co.jp/digital/game/${code}/${code}pr.jpg`
-            } else if (e.target.href.includes('vndb')){
+            } else if (e.target.href.includes('vndb.org')) {
                 GM_xmlhttpRequest({
                     method: 'GET',
                     url: e.target.href,
                     responseType: 'document',
-                    onload: function(resp) {
-                        Chan.prev.src = resp.response.querySelector('.imghover img').src
-                    }
+                    onload: function(resp) { Chan.prev.src = resp.response.querySelector('.imghover img').src }
                 });
             }
             Chan.prev.style.visibility = ''
