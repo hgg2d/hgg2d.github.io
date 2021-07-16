@@ -19,7 +19,7 @@
     'use strict'
     const d = document
     const Chan = {
-        VNDBCode: /((?:(?:https?:\/\/)?vndb.org\/)?(v\d+))/gi,
+        VNDBCode: /(((?:(?:https?:\/\/)?vndb.org\/)|\s+|^)(v\d+))/gi,
         DMMCode: /(?:(?:dmm|www|https?)[^>\s]+)?(?:cid=)?(?:d_|DMM)(\d{6})/gi,
         RJCode: /((?:(?:dlsite|www|http|maniax)[^>\s]+)?[rv][jea]a?((\d{3})\d{3})(?:\.html)?)/gi,
         RGBlog: /(http:\/\/\S*b\.dlsite\.net\/(?:rg\d{5}\/)?archives\/\d{3,8}\.html)/gi,
