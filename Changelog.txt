@@ -1,3 +1,7 @@
+Version 1.15
+= Features
+- Now works with vndb links
+
 Version 1.10
 = Features
 - Ipfs directories are now supported by the script, provided they follow RE/RJ code format conventions
