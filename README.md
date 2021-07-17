@@ -8,6 +8,7 @@
 
 - Converts DLSite RG/RJ/RE codes and urls into clickable links
 - Additionally RJ, RE, and DMM links supply an on-hover preview image so you don't have to navigate to an additional web-page
-- \*NEW\* Works with Ipfs domains, bringing easier to digest directories right to your browser
+- Works with Ipfs domains, bringing easier to digest directories right to your browser
+- \*NEW\* Works with VNDB links and vn codes
 
 ![](https://github.com/hgg2d/hgg2d.github.io/raw/master/Preview.gif)
