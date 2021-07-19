@@ -1,3 +1,7 @@
+Version 1.16
+= Bugfixes
+- VNDB codes no longer match text referring to versions (eg: v1.23)
+
 Version 1.15
 = Features
 - Now works with vndb links
