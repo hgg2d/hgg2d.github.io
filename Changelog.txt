@@ -1,3 +1,7 @@
+Version 2.0.2
+= Features
+- Added global enable/disable button
+
 Version 2.0
 = Features
 - Complete rewrite of the old code
