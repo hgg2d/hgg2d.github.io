@@ -1,3 +1,15 @@
+Version 2.0
+= Features
+- Complete rewrite of the old code
+- Previews now have two modes, standard and grid
+- - grid layout displays all games with previews in a nice looking grid, enjoy
+- Added in custom replacements, these are accessible through the new Settings dialog
+- - the custom replacement text matches a regular expression (already calculating
+    word boundaries). if you don't know regular expressions, no problem! just put
+    your text on the left and don't worry about it.
+- Settings have been completely changed
+- - Settings dialog is now very clear and reactive to your settings.
+
 Version 1.10
 = Features
 - Ipfs directories are now supported by the script, provided they follow RE/RJ code format conventions
