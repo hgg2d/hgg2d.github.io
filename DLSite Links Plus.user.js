@@ -32,6 +32,7 @@ class Chan {
     // initEventListeners must come after setting lewds, codes, lewdsToggle,
     // settingsToggle, settingsBox, prev, input_previewBar, and input_previewGrid
     this.initEventListeners();
+    this.toggle();
 
     /** @type {Set<string>} */
     this.games = new Set();
@@ -272,10 +273,11 @@ class Chan {
         right: 1rem;
         display: grid;
         grid-template-columns: 1fr 5rem;
-        grid-template-rows: 1fr min-content;
+        grid-template-rows: 1fr min-content min-content;
         grid-auto-rows: auto;
         grid-template-areas:  'lewds codes'
-        'lewds settings';
+                              'lewds settings'
+                              'lewds toggle';
         max-width: 45vw;
         height: 38rem;
       }
@@ -376,7 +378,8 @@ class Chan {
         grid-area: settings;
       }
       
-      .hgg2d__settingsToggle > a {
+      .hgg2d__settingsToggle > a,
+      .hgg2d__toggle > a {
         cursor: pointer;
       }
       
@@ -385,17 +388,23 @@ class Chan {
         height: 1rem;
         overflow: hidden;
       }
-      
+
+      .hgg2d__toggle {
+        grid-area: toggle;
+      }
+
       .hgg2d__active,
       .hgg2d__preview:hover {
         filter: none;
       }
       
+      .hgg2d__toggle::before,
       .hgg2d__lewdsToggle::before,
       .hgg2d__settingsToggle::before {
         content: '['
       }
       
+      .hgg2d__toggle::after,
       .hgg2d__lewdsToggle::after,
       .hgg2d__settingsToggle::after {
         content: ']'
@@ -443,6 +452,9 @@ class Chan {
       </aside>
       <aside class="hgg2d__settingsToggle">
         <a>settings</a>
+      </aside>
+      <aside class="hgg2d__toggle">
+        <a>${this.settings.enabled ? 'disable' : 'enable'}</a>
       </aside>
       <aside class="hgg2d__settings hgg2d-hidden">
         <span class="hgg2d__settings-header">Quicklinks Settings:</span>
@@ -519,6 +531,11 @@ class Chan {
       }
     });
 
+    this.hgg2d.querySelector('.hgg2d__toggle > a').addEventListener('click', (e) => {
+      this.settings.enabled = e.target.textContent !== 'disable';
+      e.target.textContent = e.target.textContent === 'disable' ? 'enable' : 'disable';
+    });
+
     this.settingsToggle.addEventListener('click', () => {
       this.settingsBox.classList.toggle('hgg2d-hidden');
     });
@@ -548,13 +565,11 @@ class Chan {
   }
 
   initSettings() {
-    /**
-     * @type {{firstRun: boolean, previewBar: boolean, previewGrid: boolean, matches: {string: string}[]}}
-     */
-    const target = JSON.parse(localStorage.getItem('hgg2d')) || {
+    const defaults = {
       firstRun: true,
       previewBar: true,
       previewGrid: true,
+      enabled: true,
       matches: [
         ['VH', 'https://mega.nz/#F!F9ZyVSLY!6U0TlvbW88UFAynZ3pxJBg'],
         ['Violated Heroine', 'https://mega.nz/#F!F9ZyVSLY!6U0TlvbW88UFAynZ3pxJBg'],
@@ -562,6 +577,16 @@ class Chan {
         ['fumika\'s game', 'https://www.dlsite.com/maniax/work/=/product_id/RJ242995.html'],
       ],
     };
+    /**
+     * @type {{firstRun: boolean, previewBar: boolean, previewGrid: boolean, enabled: boolean, matches: {string: string}[]}}
+     */
+    const target = JSON.parse(localStorage.getItem('hgg2d')) || defaults;
+    const keys = Object.keys(target);
+    for (const key of Object.keys(defaults)) {
+      if (!keys.includes(key)) {
+        target[key] = defaults[key];
+      }
+    }
     // Proxies are really cool, this allows us to have an actively updating
     // local storage entity while removing logic from everywhere to update the
     // instance variable as well.
@@ -575,6 +600,9 @@ class Chan {
           case 'previewBar':
             this.input_previewBar.checked = value;
             break;
+          case 'enabled':
+            this.toggle();
+            break;
         }
         localStorage.setItem('hgg2d', JSON.stringify(target));
         return true;
@@ -584,6 +612,17 @@ class Chan {
     this.settings_4chan = JSON.parse(localStorage.getItem('4chan-settings'));
   }
 
+  toggle() {
+    if (this.settings.enabled) {
+      this.codes.classList.remove('hgg2d-hidden');
+      this.lewds.classList.remove('hgg2d-hidden');
+      this.settingsToggle.parentElement.classList.remove('hgg2d-hidden');
+    } else {
+      this.codes.classList.add('hgg2d-hidden');
+      this.lewds.classList.add('hgg2d-hidden');
+      this.settingsToggle.parentElement.classList.add('hgg2d-hidden');
+    }
+  }
 
   /**
    * @param {HTMLElement} node
