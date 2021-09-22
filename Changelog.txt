@@ -1,3 +1,9 @@
+Version 2.0.3
+= UI Changes
+- changed the location of the quicklinks settings link, it is now located just to the left of the page stats on top of the page
+- Now if the Preview Grid setting is disabled, the entire addon disappears, including the grid (hovers still work!)
+- changed the location of the quicklinks bar, it should no longer interfere with native controls
+
 Version 2.0.2
 = Features
 - Added global enable/disable button
