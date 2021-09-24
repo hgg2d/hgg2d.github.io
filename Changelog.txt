@@ -1,8 +1,14 @@
+Version 2.0.4
+= UI Changes
+- The preview bar is now sticky to a position within the thread! This will prevent
+  users on any common resolution to use the bar without it getting in the way of
+  other UI components (tested on 1336x768, 1440x900, 1280x800, 1920x1080, 2560x1440)
+
 Version 2.0.3
 = UI Changes
-- changed the location of the quicklinks settings link, it is now located just to the left of the page stats on top of the page
+- Changed the location of the quicklinks settings link, it is now located just to the left of the page stats on top of the page
 - Now if the Preview Grid setting is disabled, the entire addon disappears, including the grid (hovers still work!)
-- changed the location of the quicklinks bar, it should no longer interfere with native controls
+- Changed the location of the quicklinks bar, it should no longer interfere with native controls
 
 Version 2.0.2
 = Features
