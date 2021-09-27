@@ -1,3 +1,13 @@
+Version 2.0.5
+= Features
+- Announce codes now have their links properly updated when auto-detected in the
+  thread.
+- Quicklinks scrolling can now be toggled between instant and smooth scrolling
+  It came to my attention that my scrollTo events do not perform well on chrome
+  this isn't a problem for Firefox, where I was typically doing testing, so while
+  I work on a solution that allows both browsers to work well with smoothscrolling
+  I have applied a band-aid fix of instant-scrolling.
+
 Version 2.0.4
 = UI Changes
 - The preview bar is now sticky to a position within the thread! This will prevent
