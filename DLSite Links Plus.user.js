@@ -89,12 +89,16 @@ class Chan {
       if (src.includes('dlsite')) {
         const code = src.match(/[RV]J\d{6}/g)[1];
         const barCode = this.codes.querySelector(`a[href*="${code}"]`);
+        const threadLinks = this.thread.querySelectorAll(`a[href*="${code}"]`);
         if (src.includes('ana')) {
           src = src.replace(/(https\S+)ana(\S+)_ana(\S+)/, '$1work$2$3');
           barCode.href = barCode.href.replace('announce', 'work');
         } else {
           src = src.replace(/(https\S+)work(\S+?_)(\S+)/, '$1ana$2ana_$3');
           barCode.href = barCode.href.replace('work', 'announce');
+        }
+        for (const threadLink of threadLinks) {
+          threadLink.href = barCode.href;
         }
         anchor.href = barCode.href;
       }
@@ -806,10 +810,10 @@ class Chan {
       el.remove();
     }
     node.normalize();
-    this.matchText(node, this.CIEN, this.createCien);
-    this.matchText(node, this.DMMCode, this.createDMM);
-    this.matchText(node, this.RGCirc, this.createCirc);
-    this.matchText(node, this.RJCode, this.createRJ);
+    this.matchText(node, this.CIEN, (href) => this.createCien(href));
+    this.matchText(node, this.DMMCode, (match, code) => this.createDMM(match, code));
+    this.matchText(node, this.RGCirc, (match, code) => this.createCirc(match, code));
+    this.matchText(node, this.RJCode, (match, code, bucket) => this.createRJ(match, code, bucket));
     this.matchSearches(node);
   }
 }
