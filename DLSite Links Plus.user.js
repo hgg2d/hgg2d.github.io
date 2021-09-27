@@ -28,7 +28,9 @@ class Chan {
     this.settingsToggle = this.hgg2d__settings.querySelector('.hgg2d__settingsToggle > a');
     this.settingsBox = this.hgg2d__settings.querySelector('.hgg2d__settings');
     this.prev = this.addElement('img', document.body, { class: 'hgg2d__follow' });
-    [this.input_previewBar, this.input_previewGrid] = Array.from(this.hgg2d__settings.querySelectorAll('input'));
+    this.input_previewBar = this.hgg2d__settings.querySelector('.previewBar');
+    this.input_previewGrid = this.hgg2d__settings.querySelector('.previewGrid');
+    this.input_smoothScrolling = this.hgg2d__settings.querySelector('.smoothScrolling');
     // initEventListeners must come after setting lewds, codes, lewdsToggle,
     // settingsToggle, settingsBox, prev, input_previewBar, and input_previewGrid
     this.initEventListeners();
@@ -478,9 +480,14 @@ class Chan {
       <span class="hgg2d__settings-header">Quicklinks Settings:</span>
       <a class="hgg2d__settings-close">[x]</a>
       <div class="hgg2d__settings-bars">
-        <input type="checkbox" ${this.settings.previewBar ? 'checked' : ''}>Show Preview Bar</input>
         <div>
-          <span>>></span><input type="checkbox" ${this.settings.previewGrid ? 'checked' : ''}>Show Preview Grid</input>
+          <input type="checkbox" ${this.settings.previewBar ? 'checked' : ''} class="previewBar">Show Preview Bar</input>
+        </div>
+        <div>
+          <span>>></span><input type="checkbox" ${this.settings.previewGrid ? 'checked' : ''} class="previewGrid">Show Preview Grid</input>
+        </div>
+        <div>
+          <input type="checkbox" ${this.settings.smoothScrolling ? 'checked' : ''} class="smoothScrolling">Smoothscrolling</input>
         </div>
       </div>
       <div class="hgg2d__matchForm">
@@ -546,6 +553,10 @@ class Chan {
         this.lewds.classList.add('hgg2d__nogrid');
       }
       this.gridToggle.textContent = this.settings.previewGrid ? 'hide' : 'show';
+    });
+
+    this.input_smoothScrolling.addEventListener('change', (e) => {
+      this.settings.smoothScrolling = e.target.checked;
     });
 
     this.gridToggle.addEventListener('click', () => {
@@ -617,17 +628,18 @@ class Chan {
   initSettings() {
     const defaults = {
       firstRun: true,
-      previewBar: true,
-      previewGrid: true,
       matches: [
         ['VH', 'https://mega.nz/#F!F9ZyVSLY!6U0TlvbW88UFAynZ3pxJBg'],
         ['Violated Heroine', 'https://mega.nz/#F!F9ZyVSLY!6U0TlvbW88UFAynZ3pxJBg'],
         ['(nanako|serena)\'s game', 'https://mega.nz/#F!F9ZyVSLY!6U0TlvbW88UFAynZ3pxJBg'],
         ['fumika\'s game', 'https://www.dlsite.com/maniax/work/=/product_id/RJ242995.html'],
       ],
+      previewBar: true,
+      previewGrid: true,
+      smoothScrolling: true,
     };
     /**
-     * @type {{firstRun: boolean, previewBar: boolean, previewGrid: boolean, enabled: boolean, matches: {string: string}[]}}
+     * @type {{firstRun: boolean, previewBar: boolean, previewGrid: boolean, enabled: boolean, matches: {string: string}[], smoothScrolling: boolean}}
      */
     const target = JSON.parse(localStorage.getItem('hgg2d')) || defaults;
     const keys = Object.keys(target);
@@ -717,6 +729,7 @@ class Chan {
     /** @type {HTMLAnchorElement} */
     const target = e.target.classList.contains('hgg2d__code') ? e.target : undefined;
     if (!target) return;
+    const behavior = this.settings.smoothScrolling ? 'smooth' : 'instant';
     /** @type {HTMLImageElement} */
     let img;
     if (target.href.includes('dlsite')) {
@@ -725,7 +738,7 @@ class Chan {
       if (this.settings.previewGrid && this.settings.previewBar) {
         img.classList.add('hgg2d__active');
         const a = img.parentNode;
-        this.lewds.scrollTo({ top: a.offsetTop - a.clientHeight / 2, behavior: 'smooth' });
+        this.lewds.scrollTo({ top: a.offsetTop - a.clientHeight / 2, behavior });
         return;
       }
     } else if (target.href.includes('dmm.co.jp')) {
@@ -734,7 +747,7 @@ class Chan {
       if (this.settings.previewGrid && this.settings.previewBar) {
         img.classList.add('hgg2d__active');
         const a = img.parentNode;
-        this.lewds.scrollTo({ top: a.offsetTop - a.clientHeight / 2, behavior: 'smooth' });
+        this.lewds.scrollTo({ top: a.offsetTop - a.clientHeight / 2, behavior });
         return;
       }
     }
