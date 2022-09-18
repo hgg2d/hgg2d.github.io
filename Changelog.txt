@@ -1,3 +1,12 @@
+Version 2.0.7
+= Features
+- Added an opt-in block list, to prevent disgusting hag posters from ruining
+  the thread experience
+= UI Changes
+- The settings dialog now has an additional section "Blocklist"
+  - Adding a code (e.g. RJ406483) to your blocklist will prevent it from being
+    parsed.
+
 Version 2.0.6
 = Bugfix
 - Fixed an edge case where some errors were not properly being detected.
