@@ -1,3 +1,7 @@
+Version 2.0.7.1
+= Features
+- Added in parsing for RJ codes within image names
+
 Version 2.0.7
 = Features
 - Added an opt-in block list, to prevent disgusting hag posters from ruining
