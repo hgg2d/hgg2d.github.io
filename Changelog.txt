@@ -1,3 +1,11 @@
+Version 2.1.1
+= Bugfix
+- Fixed parsing of codes einding in 000.
+
+Version 2.1.0
+= Bugfix
+- Fixed parsing of 8 digit codes.
+
 Version 2.0.6
 = Bugfix
 - Fixed an edge case where some errors were not properly being detected.
